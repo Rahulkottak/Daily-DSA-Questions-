@@ -1,0 +1,27 @@
+class Solution {
+  public:
+    int arrayOperations(int n, vector<int> &arr) {
+        int count=0;
+        bool s=false;
+        bool l=false;
+        for(auto x:arr){
+            if(x==0 && s){
+                count++;
+                s=false;
+            }
+            else if(x==0){
+                l=true;
+            }
+            else if(x>0){
+                s=true;
+            }
+        }
+        if(s && count){
+            count++;
+        }
+        if(count==0 && l)return 0;
+        if(count==0)return -1;
+        return count;
+        // code here
+    }
+};

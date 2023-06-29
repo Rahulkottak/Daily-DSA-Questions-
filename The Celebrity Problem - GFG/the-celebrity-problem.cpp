@@ -9,30 +9,27 @@ using namespace std;
 
 class Solution 
 {
-    private:
-    bool knows(vector<vector<int> >& M,int a , int b){
+    public:
+    bool knows(vector<vector<int> >& M,int a ,int b){
         if(M[a][b]==1){
-            return true ;
+            return true;
         }
         return false ;
     }
     
-    public:
     //Function to find if there is a celebrity in the party or not.
-    int celebrity(vector<vector<int> >& M, int n) 
-    {
-        stack<int> s ;
+    
+    int celebrity(vector<vector<int> >& M, int n) {
+        stack<int> s;
         for(int i=0;i<n;i++){
             s.push(i);
         }
-            
         while(s.size()>1){
-            int a = s.top();
+            int a=s.top();
             s.pop();
-            int b =s.top();
+            int b=s.top();
             s.pop();
-        
-        
+            
             if(knows(M,a,b)){
                 s.push(b);
             }
@@ -40,37 +37,35 @@ class Solution
                 s.push(a);
             }
         }
-        //Verifying the potential candidate
+        
         int ans = s.top();
-        int zeroCount = 0;
-        bool rowCheck = false ;
+        int ZeroCount=0,OneCount=0;
+        bool rowCheck,ColCheck ;
         
         for(int i=0;i<n;i++){
             if(M[ans][i]==0){
-                zeroCount++ ;
+                ZeroCount++;
             }
         }
-        if(zeroCount == n){
-            rowCheck = true ;
-        }
-        
-        int oneCount=0;
-        bool colCheck = false ;
         for(int i=0;i<n;i++){
             if(M[i][ans]==1){
-                oneCount++ ;
+                OneCount++;
             }
         }
-        if(oneCount == n-1){
-            colCheck = true ;
+        if(ZeroCount==n && OneCount==n-1){
+            rowCheck=true ;
+            ColCheck=true ;
         }
-        
-        if(rowCheck == true && colCheck == true ){
+        if(ZeroCount && ColCheck){
             return ans ;
         }
         else{
             return -1 ;
         }
+        
+        
+        
+        
     }
 };
 
